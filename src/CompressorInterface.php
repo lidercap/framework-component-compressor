@@ -1,6 +1,6 @@
 <?php
 
-namespace Telesena\Backend\GlobalBundle\Compressor;
+namespace Lidercap\Component\Compressor;
 
 /**
  * Interface para compressores.

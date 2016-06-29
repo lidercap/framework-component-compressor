@@ -1,11 +1,9 @@
 <?php
 
-namespace Telesena\Backend\GlobalBundle\Compressor;
+namespace Lidercap\Component\Compressor;
 
 /**
- * Class GzipCompressor
- *
- * @package Telesena\Warmup\Compressor
+ * Compressor Gzip(.gz).
  */
 class GzipCompressor extends AbstractCompressor
 {

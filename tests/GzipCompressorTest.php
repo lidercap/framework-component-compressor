@@ -1,10 +1,10 @@
 <?php
 
-namespace Telesena\Backend\GlobalBundle\Tests\Compressor;
+namespace Lidercap\Tests\Component\Compressor;
 
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
-use Telesena\Backend\GlobalBundle\Compressor\GzipCompressor;
+use Lidercap\Component\Compressor\GzipCompressor;
 
 /**
  * Class GzipCompressorTest

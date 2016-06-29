@@ -1,11 +1,11 @@
 <?php
 
-namespace Telesena\Backend\GlobalBundle\Compressor;
+namespace Lidercap\Component\Compressor;
 
 /**
  * Class AbstractCompressor
  *
- * @package Telesena\Backend\GlobalBundle\Compressor
+ * @package Lidercap\Component\Compressor
  */
 abstract class AbstractCompressor implements CompressorInterface
 {

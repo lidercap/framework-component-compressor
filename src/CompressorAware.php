@@ -1,11 +1,11 @@
 <?php
 
-namespace Telesena\Backend\GlobalBundle\Compressor;
+namespace Lidercap\Component\Compressor;
 
 /**
  * Class CompressorAware
  *
- * @package Telesena\Backend\GlobalBundle\Compressor
+ * @package Lidercap\Component\Compressor
  */
 trait CompressorAware
 {
