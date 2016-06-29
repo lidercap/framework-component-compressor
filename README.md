@@ -35,8 +35,11 @@ Compressor de arquivos Gzip(.gz).
 $gzip = new GzipCompressor('/tmp/file.txt');
 $gzip->compress($level); // level default: 9
 
-// Obtendo o buffer comprimido.
+// Opção 1: obtendo o buffer comprimido.
 $buffer = $gzip->getContents();
+
+// Opção 2: salvando o novo arquivo.
+$gzip->saveAs('/tmp/file.txt.gz');
 
 ```
 
