@@ -14,4 +14,3 @@ vendor/*
 build/*
 logs/*
 bin/*
-composer.lock
