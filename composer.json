@@ -3,14 +3,14 @@
   "description": "Compressão de arquivos via PHP",
   "version": "0.1.0",
   "license": "proprietary",
-  "type": "project",
+  "type": "component",
   "config": {
-      "bin-dir": "bin"
+    "bin-dir": "bin"
   },
   "autoload": {
-      "psr-4": {
-          "Lidercap\\Component\\Compressor\\": "src/"
-      }
+    "psr-4": {
+      "Lidercap\\Component\\": "src/"
+    }
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
