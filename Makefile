@@ -7,6 +7,7 @@ BOLD=\033[1m
 ENDBOLD=\033[0m
 STDOUT=> /dev/null 2>&1
 BIN=bin
+BUILD=build
 COMPOSER=/usr/bin/composer
 
 NAME=`sed 's/[\", ]//g' composer.json | grep name | cut -d: -f2`
@@ -14,6 +15,7 @@ DESC=`sed 's/[\",]//g' composer.json | grep description | cut -d: -f2 | sed -e '
 VERSION=`sed 's/[\", ]//g' composer.json | grep version | cut -d: -f2`
 
 build: .clear .check-composer lint phpcs
+	@[ -d ${BUILD} ] || mkdir ${BUILD}
 	@make testdox > /dev/null
 	@echo " - All tests passing"
 	@echo ""
@@ -38,20 +40,25 @@ phpcs:
 	@$(BIN)/phpcs --standard=phpcs.xml src tests
 	@echo " - No code standards violation detected"
 
+phpmd: rw .clear
+	@trap "${BIN}/phpmd --suffixes php ${SRC} html cleancode,codesize,controversial,design,naming,unusedcode --reportfile ${BUILD}/pmd.html" EXIT
+	@echo " - Mess detector report generated"
+
 test: .clear
 	@$(BIN)/phpunit
 
 testdox: .clear
-	@$(BIN)/phpunit --testdox --coverage-html=coverage
+	@$(BIN)/phpunit --testdox --coverage-html=${BUILD}/coverage
 	@echo "\n\\o/ All tests passing!!!"
 	@echo ""
 
-coverage: testdox
-	@$(BROWSER) coverage/index.html
+coverage:
+	@[ -d ${BUILD}/coverage ] || make testdox
+	@$(BROWSER) ${BUILD}/coverage/index.html
 
 clean:
 	@echo "${BOLD}==> Removing build and temporary files...${ENDBOLD}"
-	@rm -Rf build coverage coverage.xml
+	@rm -Rf ${BUILD} coverage.xml
 
 clean-all: .clear clean
 	@echo "${BOLD}==> Removing external dependencies...${ENDBOLD}"
