@@ -1,22 +1,22 @@
-Nome do Projeto
-===============
+COMPONENT COMPRESSOR
+====================
 
-Aqui vai uma pequena descrição do projeto, falando um pouco sobre seu propósito e os problemas que ele se propõe a resolver.
+Compressão de arquivos via PHP.
 
 Instalação
 ----------
 
-É recomendado instalar [nome-do-projeto] através do [composer](http://getcomposer.org).
+É recomendado instalar **framework-component-compressor** através do [composer](http://getcomposer.org).
 
 ```
 {
     "require": {
-        "lidercap/framework-[nome-do-projeto]": "dev-master"
+        "lidercap/framework-component-compressor": "dev-master"
     },
     "repositories": [
         {
             "type": "vcs",
-            "url":  "git@bitbucket.org:lidercap/framework-[nome-do-projeto].git"
+            "url":  "git@bitbucket.org:lidercap/framework-component-compressor.git"
         }
     ]
 }
@@ -38,15 +38,23 @@ Para rodar a suite de testes, você deve instalar as dependências externas do p
     $ make test    (sem relatório de coverage)
     $ make testdox (com relatório de coverage)
 
-NOME DA FUNÇÃO
+GzipCompressor
 --------------
 
-Descrição da função.
+Compressor de arquivos Gzip(.gz).
+
+#### Compress
+
+Comprimindo um arquivo.
 
 ```php
 <?php
 
-// Coloque aqui exemplos de uso
+$gzip = new GzipCompressor('/tmp/file.txt');
+$gzip->compress($level); // level default: 9
+
+// Obtendo o buffer comprimido.
+$buffer = $gzip->getContents();
 
 ```
 
