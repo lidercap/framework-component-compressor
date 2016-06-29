@@ -13,7 +13,7 @@ NAME=`sed 's/[\", ]//g' composer.json | grep name | cut -d: -f2`
 DESC=`sed 's/[\",]//g' composer.json | grep description | cut -d: -f2 | sed -e 's/^[ \t]*//'`
 VERSION=`sed 's/[\", ]//g' composer.json | grep version | cut -d: -f2`
 
-build: .rw .clear .check-composer lint phpcs phpmd phpcpd phpdcd
+build: .rw .clear .check-composer lint phpcs phpmd phpcpd
 	@make testdox > /dev/null
 	@echo " - All tests passing"
 	@echo ""
@@ -52,10 +52,6 @@ phpmd: .rw .clear
 phpcpd: .rw .clear
 	@trap "${BIN}/phpcpd --log-pmd=${BUILD}/phpcpd.xml src > /dev/null" EXIT
 	@echo " - Duplicated lines report generated"
-
-phpdcd: .rw .clear
-	@${BIN}/phpdcd src > ${BUILD}/phpdcd.txt
-	@echo " - Dead code report generated"
 
 test: .rw .clear
 	@$(BIN)/phpunit
