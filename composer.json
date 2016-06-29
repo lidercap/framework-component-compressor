@@ -1,0 +1,27 @@
+{
+  "name": "lidercap/framework-skeleton",
+  "description": "Pequena descrição",
+  "version": "0.1.0",
+  "license": "proprietary",
+  "type": "project",
+  "require": {
+    "php": ">=5.5.9"
+  },
+  "require-dev": {
+    "ext-xdebug": "*",
+    "phpunit/phpunit": "^4.8",
+    "phpmd/phpmd": "2.1.*",
+    "sebastian/phpcpd": "2.0.*",
+    "squizlabs/php_codesniffer": "^2.6"
+  },
+  "config": {
+      "bin-dir": "bin"
+  },
+  "autoload": {
+      "psr-4": {
+          "Lidercap\\Skeleton\\": "src/"
+      }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
