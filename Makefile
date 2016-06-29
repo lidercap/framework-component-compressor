@@ -22,8 +22,7 @@ build: .rw .clear .check-composer lint phpcs phpmd phpcpd phpdcd
 
 release: build
 	@echo "Releasing version ${VERSION}..."
-	@git commit -m 'updading composer.json' composer.json ${STDOUT}
-	@git tag ${VERSION} ${STDOUT}
+	@git tag ${VERSION}
 	@git push origin ${VERSION} ${STDOUT}
 	@echo " SUCCESS!!!"
 	@echo ""
