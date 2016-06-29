@@ -17,11 +17,11 @@ build: .rw .clear .check-composer lint phpcs phpmd phpcpd phpdcd
 	@make testdox > /dev/null
 	@echo " - All tests passing"
 	@echo ""
-	@echo " - \\o/ BUILD SUCCESS!!!"
+	@echo " \\o/ BUILD SUCCESS!!!"
 	@echo ""
 
 release: build
-	@echo "Releasing version ${VERSION}..."
+	@echo " Releasing version ${VERSION}..."
 	@git tag ${VERSION}
 	@git push origin ${VERSION} ${STDOUT}
 	@echo " SUCCESS!!!"
