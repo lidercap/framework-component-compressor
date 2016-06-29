@@ -111,4 +111,4 @@ help: .clear
 	@echo "  help               Exibe esta mensagem de HELP"
 	@echo ""
 
-.PHONY: build release install lint phpcs phpmd phpcpd phpdcd test testdox coverage clean clean-all help
+.PHONY: build release install lint phpcs phpmd phpcpd test testdox coverage clean clean-all help
