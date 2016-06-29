@@ -13,12 +13,15 @@ NAME=`sed 's/[\", ]//g' composer.json | grep name | cut -d: -f2`
 DESC=`sed 's/[\",]//g' composer.json | grep description | cut -d: -f2 | sed -e 's/^[ \t]*//'`
 VERSION=`sed 's/[\", ]//g' composer.json | grep version | cut -d: -f2`
 
-build: .rw .clear .check-composer lint phpcs phpmd phpcpd
+build: .rw .clear .check-composer .build lint phpcs phpmd phpcpd
 	@make testdox > /dev/null
 	@echo " - All tests passing"
 	@echo ""
 	@echo " \\o/ BUILD SUCCESS!!!"
 	@echo ""
+
+.build:
+	@echo " Building ${NAME}..."
 
 release: build
 	@echo " Releasing version ${VERSION}..."
