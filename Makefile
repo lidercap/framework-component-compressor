@@ -13,24 +13,38 @@ NAME=`sed 's/[\", ]//g' composer.json | grep name | cut -d: -f2`
 DESC=`sed 's/[\",]//g' composer.json | grep description | cut -d: -f2 | sed -e 's/^[ \t]*//'`
 VERSION=`sed 's/[\", ]//g' composer.json | grep version | cut -d: -f2`
 
-build: .clear .check-composer
-	@echo "Building ${NAME}..."
-	@rm -Rf build ; mkdir build
-	@cp -Rf composer.* src vendor build
-	@cd build && composer install --no-dev -o ${STDOUT}
+build: .clear .check-composer lint phpcs
+	@make testdox > /dev/null
+	@echo " - All tests passing"
+	@echo ""
+	@echo " - \\o/ BUILD SUCCESS!!!"
+	@echo ""
 
 install: .clear .check-composer
 	@$(COMPOSER) install
 
-lint:
+lint: .clear
+	@for file in `find ./src` ; do \
+		results=`php -l $$file`; \
+		if [ "$$results" != "No syntax errors detected in $$file" ]; then \
+			echo $$results; \
+			echo ""; \
+			exit 1; \
+		fi; \
+	done;
+	@echo " - No syntax errors detected"
+
+phpcs:
 	@$(BIN)/phpcs --standard=phpcs.xml src tests
+	@echo " - No code standards violation detected"
 
 test: .clear
 	@$(BIN)/phpunit
 
-testdox: .clear lint
+testdox: .clear
 	@$(BIN)/phpunit --testdox --coverage-html=coverage
 	@echo "\n\\o/ All tests passing!!!"
+	@echo ""
 
 coverage: testdox
 	@$(BROWSER) coverage/index.html
@@ -65,6 +79,7 @@ help: .clear
 	@echo "  install            Instala as externas dependências do projeto"
 	@echo ""
 	@echo "  lint               Executa a verificação de sintaxe"
+	@echo "  phpcs              Executa a verificação de padrão de codificação"
 	@echo "  test               Executa os testes unitários sem relatório"
 	@echo "  testdox            Executa os testes unitários com relatório de cobertura"
 	@echo "  coverage           Abre no navegador o relatório de cobertura"
