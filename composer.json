@@ -9,7 +9,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Lidercap\\Component\\": "src/"
+      "Lidercap\\Component\\Compressor\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Lidercap\\Tests\\Component\\Compressor\\": "tests/"
     }
   },
   "minimum-stability": "dev",
