@@ -1,4 +1,4 @@
-COMPONENT COMPRESSOR
+Component Compressor
 ====================
 
 Compressão de arquivos via PHP.
