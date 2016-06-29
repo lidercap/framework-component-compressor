@@ -27,9 +27,7 @@ GzipCompressor
 
 Compressor de arquivos Gzip(.gz).
 
-#### Compress
-
-Comprimindo um arquivo.
+#### Compress: comprime um arquivo
 
 ```php
 <?php
