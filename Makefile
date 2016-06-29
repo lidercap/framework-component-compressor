@@ -3,27 +3,27 @@
 #########################
 
 BROWSER=google-chrome
-COMPOSER=/usr/bin/composer
 BOLD=\033[1m
 ENDBOLD=\033[0m
 STDOUT=> /dev/null 2>&1
 BIN=bin
+COMPOSER=${BIN}/composer.phar
 
 NAME=`sed 's/[\", ]//g' composer.json | grep name | cut -d: -f2`
 DESC=`sed 's/[\",]//g' composer.json | grep description | cut -d: -f2 | sed -e 's/^[ \t]*//'`
 VERSION=`sed 's/[\", ]//g' composer.json | grep version | cut -d: -f2`
 
-build: .clear .check-composer
+build: .clear .composer
 	@echo "Building ${NAME}..."
 	@rm -Rf build ; mkdir build
 	@cp -Rf composer.* src vendor build
 	@cd build && composer install --no-dev -o ${STDOUT}
 
-install: .clear .check-composer
+install: .clear .composer
 	@$(COMPOSER) install
 
 lint:
-	@$(BIN)/phpcs --standard=phpcs.xml src
+	@$(BIN)/phpcs --standard=phpcs.xml src tests
 
 test: .clear
 	@$(BIN)/phpunit
@@ -43,14 +43,10 @@ clean-all: .clear clean
 	@echo "${BOLD}==> Removing external dependencies...${ENDBOLD}"
 	@rm -Rf ${BIN} vendor
 
-.check-composer:
-	@if [ ! -f ${COMPOSER} ]; then \
-		echo "Para instalar execute:"; \
-		echo "  curl -sS https://getcomposer.org/installer | php"; \
-		echo "  chmod 755 composer.phar"; \
-		echo "  sudo mv composer.phar ${COMPOSER}"; \
-		echo ""; \
-		exit 1; \
+.composer:
+	@if [ ! -f ${BIN}/composer.phar ]; then \
+		curl -sS https://getcomposer.org/installer | php -- --install-dir=${BIN}; \
+		chmod 755 ${COMPOSER}; \
 	fi; \
 
 .clear:
