@@ -1,7 +1,6 @@
 #########################
 # CONFIGURATION SECTION #
 #########################
-
 BROWSER=google-chrome
 BOLD=\033[1m
 ENDBOLD=\033[0m
