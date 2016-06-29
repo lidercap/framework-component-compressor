@@ -43,6 +43,22 @@ $gzip->saveAs('/tmp/file.txt.gz');
 
 ```
 
+#### Decompress: descomprime um arquivo
+
+```php
+<?php
+
+$gzip = new GzipCompressor('/tmp/file.txt.gz');
+$gzip->decompress($level); // level default: 9
+
+// Opção 1: obtendo o buffer descomprimido.
+$buffer = $gzip->getContents();
+
+// Opção 2: salvando o novo arquivo.
+$gzip->saveAs('/tmp/file.txt');
+
+```
+
 Desenvolvimento e Testes
 ------------------------
 
