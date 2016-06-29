@@ -14,7 +14,7 @@ NAME=`sed 's/[\", ]//g' composer.json | grep name | cut -d: -f2`
 DESC=`sed 's/[\",]//g' composer.json | grep description | cut -d: -f2 | sed -e 's/^[ \t]*//'`
 VERSION=`sed 's/[\", ]//g' composer.json | grep version | cut -d: -f2`
 
-build: .rw .clear .check-composer lint phpcs
+build: .rw .clear .check-composer lint phpcs phpmd phpcpd
 	@make testdox > /dev/null
 	@echo " - All tests passing"
 	@echo ""
@@ -42,6 +42,10 @@ phpcs:
 phpmd: .rw .clear
 	@trap "${BIN}/phpmd --suffixes php src html cleancode,codesize,controversial,design,naming,unusedcode --reportfile ${BUILD}/phpmd.html" EXIT
 	@echo " - Mess detector report generated"
+
+phpcpd: .rw .clear
+	@trap "${BIN}/phpcpd --log-pmd=${BUILD}/phpcpd.xml src > /dev/null" EXIT
+	@echo " - Duplicated lines report generated"
 
 test: .rw .clear
 	@$(BIN)/phpunit
@@ -90,6 +94,7 @@ help: .clear
 	@echo "  lint               Executa a verificação de sintaxe"
 	@echo "  phpcs              Executa a verificação de padrão de codificação"
 	@echo "  phpmd              Gera o relatório de qualidade de código"
+	@echo "  phpcpd             Gera o relatório de linhas duplicadas"
 	@echo "  test               Executa os testes unitários sem relatório"
 	@echo "  testdox            Executa os testes unitários com relatório de cobertura"
 	@echo "  coverage           Abre no navegador o relatório de cobertura"
