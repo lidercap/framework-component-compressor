@@ -21,6 +21,14 @@ build: .rw .clear .check-composer lint phpcs phpmd phpcpd phpdcd
 	@echo " - \\o/ BUILD SUCCESS!!!"
 	@echo ""
 
+release: build
+	@echo "Releasing version ${VERSION}..."
+	@git commit -m 'updading composer.json' composer.json
+	@git tag ${VERSION}
+	@git push origin ${VERSION}
+	@echo " SUCCESS!!!"
+	@echo ""
+
 install: .clear .check-composer
 	@$(COMPOSER) install
 
@@ -92,7 +100,8 @@ help: .clear
 	@echo "${DESC} (${NAME} - ${VERSION})"
 	@echo "Uso: make [options]"
 	@echo ""
-	@echo "  build (default)    Build para distribuição"
+	@echo "  build (default)    Build para release"
+	@echo "  release            Libera um novo release do componente"
 	@echo "  install            Instala as externas dependências do projeto"
 	@echo ""
 	@echo "  lint               Executa a verificação de sintaxe"
