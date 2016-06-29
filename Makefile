@@ -14,8 +14,7 @@ NAME=`sed 's/[\", ]//g' composer.json | grep name | cut -d: -f2`
 DESC=`sed 's/[\",]//g' composer.json | grep description | cut -d: -f2 | sed -e 's/^[ \t]*//'`
 VERSION=`sed 's/[\", ]//g' composer.json | grep version | cut -d: -f2`
 
-build: .clear .check-composer lint phpcs
-	@[ -d ${BUILD} ] || mkdir ${BUILD}
+build: .rw .clear .check-composer lint phpcs
 	@make testdox > /dev/null
 	@echo " - All tests passing"
 	@echo ""
@@ -40,19 +39,19 @@ phpcs:
 	@$(BIN)/phpcs --standard=phpcs.xml src tests
 	@echo " - No code standards violation detected"
 
-phpmd: rw .clear
-	@trap "${BIN}/phpmd --suffixes php ${SRC} html cleancode,codesize,controversial,design,naming,unusedcode --reportfile ${BUILD}/pmd.html" EXIT
+phpmd: .rw .clear
+	@trap "${BIN}/phpmd --suffixes php src html cleancode,codesize,controversial,design,naming,unusedcode --reportfile ${BUILD}/phpmd.html" EXIT
 	@echo " - Mess detector report generated"
 
-test: .clear
+test: .rw .clear
 	@$(BIN)/phpunit
 
-testdox: .clear
+testdox: .rw .clear
 	@$(BIN)/phpunit --testdox --coverage-html=${BUILD}/coverage
 	@echo "\n\\o/ All tests passing!!!"
 	@echo ""
 
-coverage:
+coverage: .rw
 	@[ -d ${BUILD}/coverage ] || make testdox
 	@$(BROWSER) ${BUILD}/coverage/index.html
 
@@ -75,6 +74,9 @@ clean-all: .clear clean
 		exit 1; \
 	fi; \
 
+.rw:
+	@[ -d ${BUILD} ] || mkdir ${BUILD}
+
 .clear:
 	@clear
 
@@ -87,6 +89,7 @@ help: .clear
 	@echo ""
 	@echo "  lint               Executa a verificação de sintaxe"
 	@echo "  phpcs              Executa a verificação de padrão de codificação"
+	@echo "  phpmd              Gera o relatório de qualidade de código"
 	@echo "  test               Executa os testes unitários sem relatório"
 	@echo "  testdox            Executa os testes unitários com relatório de cobertura"
 	@echo "  coverage           Abre no navegador o relatório de cobertura"
