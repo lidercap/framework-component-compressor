@@ -7,19 +7,19 @@ BOLD=\033[1m
 ENDBOLD=\033[0m
 STDOUT=> /dev/null 2>&1
 BIN=bin
-COMPOSER=${BIN}/composer.phar
+COMPOSER=/usr/bin/composer
 
 NAME=`sed 's/[\", ]//g' composer.json | grep name | cut -d: -f2`
 DESC=`sed 's/[\",]//g' composer.json | grep description | cut -d: -f2 | sed -e 's/^[ \t]*//'`
 VERSION=`sed 's/[\", ]//g' composer.json | grep version | cut -d: -f2`
 
-build: .clear .composer
+build: .clear .check-composer
 	@echo "Building ${NAME}..."
 	@rm -Rf build ; mkdir build
 	@cp -Rf composer.* src vendor build
 	@cd build && composer install --no-dev -o ${STDOUT}
 
-install: .clear .composer
+install: .clear .check-composer
 	@$(COMPOSER) install
 
 lint:
@@ -43,10 +43,15 @@ clean-all: .clear clean
 	@echo "${BOLD}==> Removing external dependencies...${ENDBOLD}"
 	@rm -Rf ${BIN} vendor
 
-.composer:
-	@if [ ! -f ${BIN}/composer.phar ]; then \
-		curl -sS https://getcomposer.org/installer | php -- --install-dir=${BIN}; \
-		chmod 755 ${COMPOSER}; \
+.check-composer:
+	@if [ ! -f ${COMPOSER} ]; then \
+		echo "Composer faltando. Para instalar execute:"; \
+		echo ""; \
+		echo "  curl -sS https://getcomposer.org/installer | php"; \
+		echo "  chmod 755 composer.phar"; \
+		echo "  sudo mv composer.phar ${COMPOSER}"; \
+		echo ""; \
+		exit 1; \
 	fi; \
 
 .clear:
