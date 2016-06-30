@@ -17,8 +17,6 @@
       "Lidercap\\Tests\\Component\\Compressor\\": "tests/"
     }
   },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
   "require": {
     "php": ">=5.5.9"
   },
@@ -30,5 +28,7 @@
     "sebastian/phpdcd": "^1.0",
     "squizlabs/php_codesniffer": "^2.6",
     "mikey179/vfsStream": "^1.6"
-  }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
