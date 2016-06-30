@@ -21,6 +21,7 @@ build: .rw .clear .check-composer .build lint phpcs phpmd phpcpd
 	@echo ""
 
 .build:
+	@[ -d vendor ] || make install
 	@echo " Building ${NAME}..."
 
 release: build
