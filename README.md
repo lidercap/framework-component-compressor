@@ -8,7 +8,7 @@ Instalação
 
 É recomendado instalar **framework-component-compressor** através do [composer](http://getcomposer.org).
 
-```
+```json
 {
     "require": {
         "lidercap/framework-component-compressor": "dev-master"
