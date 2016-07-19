@@ -64,7 +64,7 @@ test: .rw .clear
 	@$(BIN)/phpunit
 
 testdox: .rw .clear
-	@$(BIN)/phpunit --testdox --coverage-html=${BUILD}/coverage
+	@$(BIN)/phpunit --testdox
 	@echo "\n\\o/ All tests passing!!!"
 	@echo ""
 

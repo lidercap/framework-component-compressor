@@ -1,7 +1,7 @@
 {
   "name": "lidercap/framework-component-compressor",
   "description": "Compressão de arquivos via PHP",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "license": "proprietary",
   "type": "component",
   "config": {
