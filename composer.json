@@ -1,7 +1,7 @@
 {
   "name": "lidercap/framework-component-compressor",
   "description": "Compressão de arquivos via PHP",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "proprietary",
   "type": "component",
   "config": {
@@ -24,7 +24,8 @@
   "require-dev": {
     "ext-xdebug": "*",
     "phpunit/phpunit": "^4.8",
-    "phpmd/phpmd": "2.1.*",
+    "phpmd/phpmd": "2.6.*",
+    "pdepend/pdepend": "^2",
     "sebastian/phpcpd": "2.0.*",
     "sebastian/phpdcd": "^1.0",
     "squizlabs/php_codesniffer": "^2.6",
