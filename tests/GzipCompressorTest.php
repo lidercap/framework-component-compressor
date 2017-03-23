@@ -166,10 +166,6 @@ class GzipCompressorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage O conteúdo já está comprimido
-     * @expectedExceptionCode -1
-     *
      * @dataProvider providerValidLevels
      *
      * @param int $level
@@ -181,8 +177,12 @@ class GzipCompressorTest extends \PHPUnit_Framework_TestCase
         file_put_contents($from, $content);
 
         $gzip = new GzipCompressor($from);
+
         $gzip->compress($level);
+        $this->assertTrue($gzip->isCompressed());
+
         $gzip->compress($level);
+        $this->assertTrue($gzip->isCompressed());
     }
 
     /**

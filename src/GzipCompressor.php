@@ -20,8 +20,7 @@ class GzipCompressor extends AbstractCompressor
     public function compress($level = 9)
     {
         if ($this->isCompressed()) {
-            $message = 'O conteúdo já está comprimido';
-            throw new \RuntimeException($message, -1);
+            return $this;
         }
 
         $level = (int)$level;
